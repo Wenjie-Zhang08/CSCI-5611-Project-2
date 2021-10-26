@@ -16,7 +16,7 @@ Camera camera;
 Cloth cloth;
 
 
-PVector center = new PVector(30.0, 60.0, 30);
+PVector center = new PVector(35.0, 60.0, 30);
 float rad = 20;
 
 float clothRad = 0.5;

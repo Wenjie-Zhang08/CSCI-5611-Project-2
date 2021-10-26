@@ -12,7 +12,7 @@ class Cloth
   float mass = 0.5; //TRY-IT: How does changing mass affect resting length of the rope?
   // Larger K -> smaller length
   //float k = 5000; //TRY-IT: How does changing k affect resting length of the rope?
-  float kGen = 500;
+  float kGen = 1000;
   float kDiagS = 100;
   float kDiagL = 100;
   
@@ -206,13 +206,13 @@ class Cloth
        //if(i == 0){
         
          
-       /*
+       
        if(i == 0 && (j == 0 || j ==( cols - 1 ))){
         vel[i][j] = new PVector(0,0,0);
         
         //continue;
        }
-       */
+       
      }
     }
     

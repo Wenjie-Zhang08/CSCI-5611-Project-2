@@ -9,10 +9,21 @@
 
 boolean round = true;
 //load
-String[] imageNames = {};
-String[] tNames = {};
+String[] imageNames = {"Summer_Rocks.png"};
+String[] tNames = {"Rock"};
+
+
+
+String[] objNames = {};// Models coming from https://quaternius.com/index.html
+String[] oNames = {};
+
+
 ArrayList<String> textureNames = new ArrayList();
+ArrayList<String> objectNames = new ArrayList();
+
+
 PImage[] images;
+PShape[] shapes  ;
 Camera camera;
 
 
@@ -48,9 +59,9 @@ void setup() {
 //------------------------------------
 boolean paused = true;
 void draw() {
-  background(255,255,255);
+  background(128,128,128);
   lights();
-  directionalLight(255, 255, 255, 0, -1.4142, 1.4142);
+  directionalLight(255, 255, 255, 0, -1.4142, -1.4142);
   
   Update(1.0/frameRate);
   
@@ -86,11 +97,11 @@ void keyReleased()
   camera.HandleKeyReleased();
 }
 
-
+/*
 float hightList[][] = {{60,90,60},
                        {90,100,90},
                        {60,90,60}};
-
+*/
 
 
 void mousePressed() {
@@ -101,12 +112,13 @@ void mousePressed() {
   hitInfo hit = raySphereListIntersect(centers,rows, cols, collR, ray[0], ray[1],9999);
   
   if(hit.hit ){
-       for (int i = 0; i < 3; i ++){
-         for(int j = 0; j < 3; j ++){
-           int ri = hit.row - 1 + i;
-           int ci = hit.col - 1 + j;
+       for (int i = 0; i < 5; i ++){
+         for(int j = 0; j < 5; j ++){
+           int ri = hit.row - 2 + i;
+           int ci = hit.col - 2 + j;
            if(ri > 0  && ri < rows && ci > 0 && ci < cols){
-                        h[ri][ci] = hightList[i][j];
+                        h[ri][ci] = 100;
+                        //h[ri][ci] = hightList[i][j];
                         hv[ri][ci] = 0;
                         hu[ri][ci] = 0;
            }
@@ -121,11 +133,19 @@ void mousePressed() {
 
 void loadScene(){
   images = new PImage[imageNames.length];
+  shapes = new PShape[objNames.length];
   for(int i = 0; i < imageNames.length; i++){
        textureNames.add(tNames[i]);
        images[i] = loadImage( imageNames[i]); //What image to load, experiment with transparent images 
        noStroke();
       // println(loading);
     //drawloading();    
+   }
+  for(int i = 0; i < objNames.length; i++){
+     shapes[i] = loadShape( objNames[i]);
+     noStroke();
+     objectNames.add(oNames[i]);
+     //println(loading);
+     
    }
 }

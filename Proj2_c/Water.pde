@@ -31,7 +31,7 @@ float[][] dhdt_mid_v;
 PVector[][] centers;
 
 float damp = 0.5;
-float g = 100;
+float g = 250;
 
 float dx = 2.5;
 float dy = 2.5;
@@ -76,6 +76,7 @@ void initHHu(){
       //hu_mid[i][j] = 0;
     }
   }
+  
   for(int i = 10; i < 15; i ++){
    for(int j = 10; j < 15; j ++){
     
@@ -84,6 +85,7 @@ void initHHu(){
    }
   }
   
+  //h[15][15] = 150;
 }
 
 
@@ -407,13 +409,13 @@ void updateH(float dt){
     h[rows-1][j] = h[rows-2][j];
     //centers[rows-1][j].y = h[rows-1][j];
     //hv[0][j] = 0;
-    //hv[0][j] = hv[1][j];
+    hv[0][j] = -hv[1][j];
     //hu[0][j] = 0;
-    hu[0][j] = -hu[1][j];
+    //hu[0][j] = -hu[1][j];
     //hv[rows-1][j] = 0;
-    //hv[rows-1][j] = -hv[rows-2][j];
+    hv[rows-1][j] = -hv[rows-2][j];
     //hu[rows-1][j] = 0;
-    hu[rows-1][j] = -hu[rows-2][j];
+    //hu[rows-1][j] = -hu[rows-2][j];
   }
   
   
@@ -440,13 +442,15 @@ void updateH(float dt){
 // Draw Water
 //------------------------------------
 void DrawWater(){
-  DrawWaterMode();
+
   DrawTank();
+    DrawWaterMode();
   //DrawDebugMode();
   
 }
 
 void DrawTank(){
+
   float tHeight = 100;
   float cMax = (rows - 1)*dx;
   float rMax = (cols - 1)*dy;
@@ -460,7 +464,25 @@ void DrawTank(){
   line(rMax,0,0,rMax,tHeight,0);
   line(0,0,cMax,0,tHeight,cMax);
   line(rMax,0,cMax,rMax,tHeight,cMax);
+
+  PImage image = images[textureNames.indexOf("Rock")];
+  pushMatrix(); 
+  beginShape();
+  texture(image);
+  noStroke();
+  //stroke(1);
+  strokeWeight(1);
   
+  
+  // vertex( x, y, z, u, v) where u and v are the texture coordinates in pixels
+  vertex(0, 0, 0, 0, 0);
+  vertex(rMax, 0, 0, image.width, 0);
+  vertex(rMax, 0, cMax, image.width, image.height);
+  vertex( 0, 0,cMax, 0, image.height);
+  endShape();
+  popMatrix(); 
+  
+
 }
 
 
@@ -477,10 +499,72 @@ void DrawDebugMode(){
   }
   
   
+  
+  
 }
 
 
 void DrawWaterMode(){
+ fill(26,180,218,220);
+ 
+  for(int i = 0; i < rows - 1 ; i ++){
+   float startZ  = dy * i;
+   float endZ = dy * (i + 1);
+   beginShape();
+   vertex(0,0,startZ);
+   vertex(0,h[i][0], startZ);
+   vertex(0,h[i+1][0],endZ);
+   endShape();
+   beginShape();
+   vertex(0,0,startZ);
+   vertex(0,h[i+1][0],endZ);
+   vertex(0,0,endZ);
+   endShape();
+   
+   // then we calculate the other side
+   float endX = dx * (cols - 1);
+   beginShape();
+   vertex(endX,0,startZ);
+   vertex(endX,h[i][cols-1], startZ);
+   vertex(endX,h[i+1][cols-1],endZ);
+   endShape();
+   beginShape();
+   vertex(endX,0,startZ);
+   vertex(endX,h[i+1][cols-1],endZ);
+   vertex(endX,0,endZ);
+   endShape();
+ }
+ 
+ 
+ for(int j = 0; j < cols - 1 ; j ++){
+   float startX  = dx * j;
+   float endX = dx * (j + 1);
+   beginShape();
+   vertex(startX,0,0);
+   vertex(startX,h[0][j], 0);
+   vertex(endX,h[0][j+1],0);
+   endShape();
+   beginShape();
+   vertex(startX,0,0);
+   vertex(endX,h[0][j+1],0);
+   vertex(endX,0,0);
+   endShape();
+   
+   
+   float endZ = dy * (rows - 1);
+   beginShape();
+   vertex(startX,0,endZ);
+   vertex(startX,h[rows-1][j], endZ);
+   vertex(endX,h[rows - 1][j+1],endZ);
+   endShape();
+   beginShape();
+   vertex(startX,0,endZ);
+   vertex(endX,h[rows - 1][j+1],endZ);
+   vertex(endX,0,endZ);
+   endShape();
+ }
+ 
+ 
  for (int i = 0; i < rows-1; i ++){
   for(int j = 0; j < cols-1; j ++) {
     
@@ -491,7 +575,7 @@ void DrawWaterMode(){
        //float midX = (startX + endX) / 2;
        //float midZ = (startZ + endZ) / 2;
        //float midY = (h[i][j] + h[i+1][j] + h[i+1][j+1] + h[i][j+1])/4;
-       fill(26,180,218,128);
+
        //fill(26,180,218);
        noStroke();
        /*
@@ -531,5 +615,6 @@ void DrawWaterMode(){
        endShape();
 
   } 
- } 
+ }
+
 }
