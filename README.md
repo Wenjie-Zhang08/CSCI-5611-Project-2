@@ -2,8 +2,7 @@
 Physical Simulations
 
 # Videos
-
-
+https://www.youtube.com/watch?v=--jHEmVRQeQ
 
 # List of Features
 ## part 2 - Cloth Simulation
@@ -41,14 +40,25 @@ Press 'r' to reset the water.
 Mouse click on water surface to 'add drops' to water.
 
 # Discription of Feature and Timestamp
-
-
-## Air Drag
-
+## Cloth Simulation
+Timestamp: 0:00 - 2:35
 
 ## 3D Simulation and Rendering
+Timestamp: 0:48 - 1:00
 
-
+Moving and Rotating camera using keyboard.
 
 **Summer_Rocks** - floor texture
+
 *Texture comes from https://assetstore.unity.com/packages/2d/textures-materials/glovergames-free-ground-textures-135418*
+
+## Air Drag
+Timestamp: 1:00 - 1:55
+
+Testing air drag by modifying the volocity based on x-Axis.
+
+## 2D Water Simulation
+Timestamp: 2:36 - 4:00
+
+## User Interaction with Water
+Timestamp: 3:00 - 4:00
