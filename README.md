@@ -3,6 +3,7 @@ Physical Simulations
 
 # Videos
 https://www.youtube.com/watch?v=--jHEmVRQeQ
+**Timestamp also included in the discription part under the Youtube Video **
 
 # List of Features
 ## part 2 - Cloth Simulation
