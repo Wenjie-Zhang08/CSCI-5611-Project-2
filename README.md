@@ -1,5 +1,5 @@
 # CSCI-5611-Project-2
-Physical Simulations
+Physical Simulations (cloth and water)
 
 # Videos
 https://www.youtube.com/watch?v=--jHEmVRQeQ
